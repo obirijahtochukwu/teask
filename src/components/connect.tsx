@@ -80,12 +80,8 @@ const WalletConnection = () => {
         <div className="header-right">
           <div className="boxed-btn cursor-pointer group !relative !w-fit !flex mt-0 gap-1">
             {shortenAddress(publicKey.toBase58())}
-            {balance ? (
-              <div>{toFixed(balance, 2)} SOL</div>
-            ) : (
-              <div>0 SOL {balance}</div>
-            )}
-
+            <span className="ml-1" />
+            SOL
             <section
               onClick={handleDisconnect}
               className=" group-hover:!visible invisible absolute top-full left-0 w-full h-10 flex items-center justify-center rounded-md bg-red-300 hover:bg-red-700 duration-300 text-black hover:!text-white mt-2.5 p-1"
