@@ -13,6 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
+import { shortenAddress } from "@/lib/utils";
 
 //handle wallet balance fixed to 2 decimal numbers without rounding
 export function toFixed(num: number, fixed: number): string {
@@ -68,82 +69,68 @@ const WalletConnection = () => {
   };
 
   return (
-    <div className="text-white">
-      <Dialog open={open} onOpenChange={setOpen}>
-        <div className="flex gap-2 items-center">
-          {!publicKey ? (
-            <>
-              <DialogTrigger asChild>
-                <Button className="bg-black text-[20px] md:text-[30px] text-white ring-black ring-2 h-[40px] md:h-[60px] border-2 border-white font-slackey z-50">
-                  {connecting ? "connecting..." : "Connect Wallet"}
-                </Button>
-              </DialogTrigger>
-            </>
-          ) : (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button className="flex gap-2 bg-black text-[20px] md:text-[30px] text-white ring-black ring-2 h-[40px]  md:h-[60px] border-2 border-white font-slackey z-50">
-                  <div className="">
-                    <div className=" truncate md:w-[150px] w-[100px]  ">
-                      {publicKey.toBase58()}
-                    </div>
-                  </div>
-                  {balance ? (
-                    <div>{toFixed(balance, 2)} SOL</div>
-                  ) : (
-                    <div>0 SOL</div>
-                  )}
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-[300px] bg-black hover:bg-black">
-                <DropdownMenuItem className="flex justify-center">
-                  <Button
-                    className="bg-[#ff5555] z-50 text-[20px]  text-white  border-2 border-white font-slackey"
-                    onClick={handleDisconnect}
-                  >
-                    Disconnect
-                  </Button>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          )}
-
-          <DialogContent
-            className="max-w-[450px] bg-black "
-            style={{
-              borderRadius: "30px",
-            }}
-          >
-            <div className="flex w-full justify-center items-center ">
-              <div className="flex flex-col justify-start items-center space-y-5  w-[300px] md:w-[400px] overflow-y-auto ">
-                {wallets.map((wallet) => (
-                  <Button
-                    key={wallet.adapter.name}
-                    //onClick={() => select(wallet.adapter.name)}
-                    onClick={() => handleWalletSelect(wallet.adapter.name)}
-                    variant={"ghost"}
-                    className=" h-[40px] hover:bg-transparent hover:text-white text-[20px] text-white font-slackey flex w-full justify-center items-center "
-                  >
-                    <div className="flex">
-                      <Image
-                        src={wallet.adapter.icon}
-                        alt={wallet.adapter.name}
-                        height={30}
-                        width={30}
-                        className="mr-5 "
-                      />
-                    </div>
-                    <div className="font-slackey text-white wallet-name text-[20px]">
-                      {wallet.adapter.name}
-                    </div>
-                  </Button>
-                ))}
-              </div>
-            </div>
-          </DialogContent>
+    <>
+      {!publicKey ? (
+        <div className="header-right">
+          <a onClick={() => setOpen(true)} href="#" className="boxed-btn mt-0">
+            CONNECT WALLET
+          </a>
         </div>
+      ) : (
+        <div className="header-right">
+          <div className="boxed-btn cursor-pointer group !relative !w-fit !flex mt-0 gap-1">
+            {shortenAddress(publicKey.toBase58())}
+            {balance ? (
+              <div>{toFixed(balance, 2)} SOL</div>
+            ) : (
+              <div>0 SOL {balance}k</div>
+            )}
+
+            <section
+              onClick={handleDisconnect}
+              className=" group-hover:!visible invisible absolute top-full left-0 w-full h-10 flex items-center justify-center rounded-md bg-red-300 hover:bg-red-700 duration-300 text-black hover:!text-white mt-2.5 p-1"
+            >
+              Disconnect
+            </section>
+          </div>
+        </div>
+      )}
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent
+          className="max-w-[450px] bg-black "
+          style={{
+            borderRadius: "30px",
+          }}
+        >
+          <div className="flex w-full justify-center items-center ">
+            <div className="flex flex-col justify-start items-center space-y-5  w-[300px] md:w-[400px] overflow-y-auto ">
+              {wallets.map((wallet) => (
+                <Button
+                  key={wallet.adapter.name}
+                  //onClick={() => select(wallet.adapter.name)}
+                  onClick={() => handleWalletSelect(wallet.adapter.name)}
+                  variant={"ghost"}
+                  className=" h-[40px] hover:bg-transparent hover:text-white text-[20px] border-none text-white font-slackey flex w-full justify-center items-center "
+                >
+                  <div className="flex">
+                    <Image
+                      src={wallet.adapter.icon}
+                      alt={wallet.adapter.name}
+                      height={30}
+                      width={30}
+                      className="mr-5 "
+                    />
+                  </div>
+                  <div className="font-slackey text-white wallet-name text-[20px]">
+                    {wallet.adapter.name}
+                  </div>
+                </Button>
+              ))}
+            </div>
+          </div>
+        </DialogContent>
       </Dialog>
-    </div>
+    </>
   );
 };
 

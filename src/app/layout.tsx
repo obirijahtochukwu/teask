@@ -18,9 +18,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body style={{ background: "black" }} className={inter.className}>
+      <body>
         <WalletContextProvider>
-          <Header />
+          {/* <Header /> */}
           {children}
         </WalletContextProvider>
       </body>

@@ -1,5 +1,7 @@
+"use client";
 import React from "react";
 import WalletConnection from "./connect";
+import SolanaTransfer from "../../mm";
 
 const Header = () => {
   return (
@@ -8,6 +10,8 @@ const Header = () => {
         <div className="text-white font-bold text-[30px]">Hello</div>
         <div>
           <WalletConnection></WalletConnection>
+
+          <SolanaTransfer />
         </div>
       </div>
     </div>
