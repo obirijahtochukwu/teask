@@ -10,22 +10,22 @@ export default function About() {
     {
       icon: icon1,
       title: "DOWNLOAD DEX",
-      des: "Download and install Solflare or Phantom on the appstore, or, alternatively if you're on desktop download and install the browser extension.",
+      des: "Download and install Solflare or Phantom on the appstore, or, alternatively if you're on desktop download and install the browser extension.",
     },
     {
       icon: icon1,
       title: "Secure your sol",
-      des: "Now all you've got to do is buy your SOL in the DEX APP, or, alternatively you can use an exchange and deposit using your wallet address.",
+      des: "Now all you've got to do is buy your SOL in the DEX APP, or, alternatively you can use an exchange and deposit using your wallet address.",
     },
     {
       icon: icon2,
       title: "Buy some $punchi",
-      des: "Now go to your wallet ,copy our provided wallet by copy icon and send sol to our provided wallet.$PUNCHI will be airdroped to sending wallet.",
+      des: "Now go to your wallet ,copy our provided wallet by copy icon and send sol to our provided wallet.$PUNCHI will be airdroped to sending wallet.",
     },
     {
       icon: icon1,
       title: "Add to your wallet",
-      des: "Now you're all set! Welcome aboard the next rocket to the moon, just import the contract address to view you're holdings.",
+      des: "Now you're all set! Welcome aboard the next rocket to the moon, just import the contract address to view you're holdings.",
     },
   ];
   return (

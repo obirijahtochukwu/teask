@@ -5,7 +5,7 @@ import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 // import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import Image from "next/image";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, X } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -72,9 +72,9 @@ const WalletConnection = () => {
     <>
       {!publicKey ? (
         <div className="header-right">
-          <a onClick={() => setOpen(true)} href="#" className="boxed-btn mt-0">
+          <div onClick={() => setOpen(true)} className="boxed-btn mt-0">
             CONNECT WALLET
-          </a>
+          </div>
         </div>
       ) : (
         <div className="header-right">
@@ -83,7 +83,7 @@ const WalletConnection = () => {
             {balance ? (
               <div>{toFixed(balance, 2)} SOL</div>
             ) : (
-              <div>0 SOL {balance}k</div>
+              <div>0 SOL {balance}</div>
             )}
 
             <section
@@ -95,13 +95,21 @@ const WalletConnection = () => {
           </div>
         </div>
       )}
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent
-          className="max-w-[450px] bg-black "
+      <section
+        className={`fixed top-0 left-0 bg-black/50 z-10 ${
+          open ? "flex" : "hidden"
+        } items-center justify-center w-screen h-screen`}
+      >
+        <div
+          className="max-w-[450px] relative py-8 bg-black "
           style={{
             borderRadius: "30px",
           }}
         >
+          <X
+            className=" absolute cursor-pointer top-3 right-3 text-4xl text-white"
+            onClick={() => setOpen(false)}
+          />{" "}
           <div className="flex w-full justify-center items-center ">
             <div className="flex flex-col justify-start items-center space-y-5  w-[300px] md:w-[400px] overflow-y-auto ">
               {wallets.map((wallet) => (
@@ -128,8 +136,8 @@ const WalletConnection = () => {
               ))}
             </div>
           </div>
-        </DialogContent>
-      </Dialog>
+        </div>
+      </section>
     </>
   );
 };
